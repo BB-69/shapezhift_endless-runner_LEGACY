@@ -55,6 +55,7 @@ friction_set = Vector2(2, 2)
 gravity_multiplier = 0.5
 
 [node name="MovementComponent" parent="." instance=ExtResource("4_wppee")]
+can_move = false
 current_move_mode = 1
 max_speed = 1800.0
 max_speed_duration = 3.0

@@ -1,0 +1,16 @@
+res://Scenes/game.tscn
+res://Shaders/blink.gdshader
+res://Shaders/tint.gdshader
+res://Shaders/camera.gdshader
+res://Scenes/Entities/player.tscn
+res://Scenes/Entities/square.tscn
+res://Scenes/Entities/triangle.tscn
+res://Scenes/Entities/circle.tscn
+res://Scenes/Calculation/arc_segment.tscn
+res://Scenes/Audio/audio_manager.tscn
+res://Scenes/Visuals/Particles/particle_manager.tscn
+res://Scripts/damage_component.gd
+res://Scripts/health_component.gd
+res://Scripts/game.gd
+res://Scripts/particle_manager.gd
+res://Scripts/ai_component_circle.gd

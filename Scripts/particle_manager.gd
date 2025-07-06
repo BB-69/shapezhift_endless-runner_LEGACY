@@ -51,7 +51,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
-	#_check_offscreen_particles()
+	#aa_check_offscreen_particles()
 
 func _check_offscreen_particles():
 	for particle in particles: if Stat.is_offscreen(particle):

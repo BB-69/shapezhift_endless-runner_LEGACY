@@ -26,7 +26,6 @@ func _process(delta: float) -> void:
 	
 	if char_body.base.tag == "player": regen(delta, 10)
 	if char_body.base.tag == "enemy":
-		return
 		regen(delta, -10)
 
 func heal(amount: float):

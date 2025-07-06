@@ -18,7 +18,6 @@ var crit_chance:
 
 signal damage_dealt
 func deal_damage(target, amount: float=base_damage):
-	return
 	if target.hp.has_method("apply_damage") and target.hp.is_alive and char_body.hp.is_alive:
 		var is_crit:bool = randf() < crit_chance
 		var damage:= base_damage * (crit_multiplier if is_crit else 1)

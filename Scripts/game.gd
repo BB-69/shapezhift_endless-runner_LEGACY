@@ -5,6 +5,7 @@ class_name GameManager
 
 const square = preload("res://Scenes/Entities/square.tscn")
 const triangle = preload("res://Scenes/Entities/triangle.tscn")
+const circle = preload("res://Scenes/Entities/circle.tscn")
 
 func _process(delta: float) -> void:
 	if Stat.Player and !Stat.Player.hp.is_alive: return
@@ -18,12 +19,13 @@ func spawn_enemy(delta):
 	spawn_timer += delta
 	if spawn_timer < spawn_interval: return
 	spawn_timer = 0.0
-	spawn_interval = randf_range(2.5, 4.5)
+	spawn_interval = randf_range(0.5, 3.5)
 	
 	var object
 	var random_enemy_chance = randf_range(0, 60)
-	if random_enemy_chance > 30: object = square.instantiate()
-	elif random_enemy_chance < 30: object = triangle.instantiate()
+	if random_enemy_chance > 40: object = square.instantiate()
+	elif random_enemy_chance < 20: object = triangle.instantiate()
+	else: return
 	
 	object.global_position = Vector2(random_position())
 	add_child(object)
