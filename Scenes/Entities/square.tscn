@@ -1,0 +1,110 @@
+[gd_scene load_steps=17 format=3 uid="uid://bn3ear3ihwn5x"]
+
+[ext_resource type="Texture2D" uid="uid://ot0drkmstkm0" path="res://Assets/Sprites/Square1.png" id="1_7naj2"]
+[ext_resource type="PackedScene" uid="uid://ljjck44lpgmy" path="res://Scenes/States/base_component.tscn" id="1_ei45a"]
+[ext_resource type="Script" uid="uid://c7jyukdqkfqjr" path="res://Scripts/square.gd" id="1_q3xqe"]
+[ext_resource type="PackedScene" uid="uid://b7xv0coqebwaa" path="res://Scenes/States/physics_component.tscn" id="2_q3xqe"]
+[ext_resource type="PackedScene" uid="uid://voc7m1usjfk2" path="res://Scenes/States/movement_component.tscn" id="3_2kwad"]
+[ext_resource type="PackedScene" uid="uid://dsav4st602l7q" path="res://Scenes/Visuals/Sprites/animated_sprite.tscn" id="4_123iv"]
+[ext_resource type="PackedScene" uid="uid://ct3cbtr1oha16" path="res://Scenes/States/health_component.tscn" id="5_123iv"]
+[ext_resource type="PackedScene" uid="uid://cqagamdtcdr0l" path="res://Scenes/UIs/health_bar.tscn" id="6_5ut4w"]
+[ext_resource type="PackedScene" uid="uid://ciw5pdj5h2o1r" path="res://Scenes/Debug/debug_text.tscn" id="6_fbas0"]
+[ext_resource type="PackedScene" uid="uid://bxf741v7qu2km" path="res://Scenes/States/damage_component.tscn" id="7_i7uah"]
+[ext_resource type="Script" uid="uid://duwplf3n7aybm" path="res://Scripts/ai_component_square.gd" id="8_123iv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu0s7"]
+atlas = ExtResource("1_7naj2")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64tuj"]
+atlas = ExtResource("1_7naj2")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vkl7y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu0s7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64tuj")
+}],
+"loop": true,
+"name": &"default_inner",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jr70"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpudf"]
+
+[node name="Square" type="CharacterBody2D" node_paths=PackedStringArray("base", "aspr", "spr", "col", "phy", "mov", "hp", "dmg", "ai")]
+z_index = 5
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_q3xqe")
+base = NodePath("BaseComponent")
+aspr = NodePath("AnimatedSprite")
+spr = [NodePath("DebugText"), NodePath("AnimatedSprite"), NodePath("HealthBar")]
+col = [NodePath("CollisionShape2D"), NodePath("HurtBox/CollisionShape2D")]
+phy = NodePath("PhysicsComponent")
+mov = NodePath("MovementComponent")
+hp = NodePath("HealthComponent")
+dmg = NodePath("DamageComponent")
+ai = NodePath("AIComponent")
+
+[node name="BaseComponent" parent="." instance=ExtResource("1_ei45a")]
+
+[node name="PhysicsComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("2_q3xqe")]
+hurtbox = NodePath("../HurtBox")
+friction_set = Vector2(0.2, 0.2)
+gravity_multiplier = 0.2
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_2kwad")]
+can_move = false
+max_speed = 3600.0
+max_speed_duration = 16.0
+apply_friction = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_123iv")]
+_current_health = 180.0
+max_health = 180.0
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("hp") instance=ExtResource("6_5ut4w")]
+hp = NodePath("../HealthComponent")
+
+[node name="DamageComponent" parent="." instance=ExtResource("7_i7uah")]
+base_damage = 60
+can_ram_damage = true
+
+[node name="AIComponent" type="Node" parent="."]
+script = ExtResource("8_123iv")
+
+[node name="AnimatedSprite" parent="." instance=ExtResource("4_123iv")]
+sprite_frames = SubResource("SpriteFrames_vkl7y")
+tint = true
+tint_color = Color(0, 0, 0.784314, 1)
+update_animation = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(5.5, 5.5)
+shape = SubResource("RectangleShape2D_2jr70")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+scale = Vector2(6.4, 6.4)
+shape = SubResource("RectangleShape2D_vpudf")
+
+[node name="DebugText" parent="." instance=ExtResource("6_fbas0")]
+visible = false
+position = Vector2(0, -112)

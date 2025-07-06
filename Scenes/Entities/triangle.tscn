@@ -1,0 +1,104 @@
+[gd_scene load_steps=15 format=3 uid="uid://dce08icnt463c"]
+
+[ext_resource type="PackedScene" uid="uid://ljjck44lpgmy" path="res://Scenes/States/base_component.tscn" id="1_047o6"]
+[ext_resource type="Script" uid="uid://bpa4ywwsgukfg" path="res://Scripts/triangle.gd" id="1_e5g2v"]
+[ext_resource type="PackedScene" uid="uid://b7xv0coqebwaa" path="res://Scenes/States/physics_component.tscn" id="2_e5g2v"]
+[ext_resource type="PackedScene" uid="uid://voc7m1usjfk2" path="res://Scenes/States/movement_component.tscn" id="3_g83ki"]
+[ext_resource type="PackedScene" uid="uid://ct3cbtr1oha16" path="res://Scenes/States/health_component.tscn" id="4_urfox"]
+[ext_resource type="PackedScene" uid="uid://cqagamdtcdr0l" path="res://Scenes/UIs/health_bar.tscn" id="5_7dnfg"]
+[ext_resource type="PackedScene" uid="uid://bxf741v7qu2km" path="res://Scenes/States/damage_component.tscn" id="6_pypgb"]
+[ext_resource type="PackedScene" uid="uid://dsav4st602l7q" path="res://Scenes/Visuals/Sprites/animated_sprite.tscn" id="8_d2w3v"]
+[ext_resource type="Script" uid="uid://be0ebgl4qvl30" path="res://Scripts/ai_component_triangle.gd" id="8_e5g2v"]
+[ext_resource type="Texture2D" uid="uid://0qspd6txc24d" path="res://Assets/Sprites/Triangle1.png" id="10_e5g2v"]
+[ext_resource type="PackedScene" uid="uid://ciw5pdj5h2o1r" path="res://Scenes/Debug/debug_text.tscn" id="10_sqfft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g83ki"]
+atlas = ExtResource("10_e5g2v")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_urfox"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g83ki")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_7dnfg"]
+points = PackedVector2Array(0, -10, 10.25, 7.66, -10.25, 7.66)
+
+[node name="triangle" type="CharacterBody2D" node_paths=PackedStringArray("base", "aspr", "spr", "col", "phy", "mov", "hp", "dmg", "ai")]
+z_index = 5
+scale = Vector2(1.1, 1.1)
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_e5g2v")
+base = NodePath("BaseComponent")
+aspr = NodePath("AnimatedSprite")
+spr = [NodePath("HealthBar"), NodePath("AnimatedSprite"), NodePath("DebugText")]
+col = [NodePath("CollisionShape2D"), NodePath("HurtBox/CollisionShape2D")]
+phy = NodePath("PhysicsComponent")
+mov = NodePath("MovementComponent")
+hp = NodePath("HealthComponent")
+dmg = NodePath("DamageComponent")
+ai = NodePath("AIComponent")
+
+[node name="BaseComponent" parent="." instance=ExtResource("1_047o6")]
+
+[node name="PhysicsComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("2_e5g2v")]
+hurtbox = NodePath("../HurtBox")
+friction_set = Vector2(5, 5)
+gravity_multiplier = 0.0
+
+[node name="MovementComponent" parent="." instance=ExtResource("3_g83ki")]
+can_move = false
+current_move_mode = 2
+max_speed = 3500.0
+max_speed_duration = 6.0
+apply_friction = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_urfox")]
+_current_health = 120.0
+max_health = 120.0
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("hp") instance=ExtResource("5_7dnfg")]
+hp = NodePath("../HealthComponent")
+in_offset = Vector2(-8, 0)
+
+[node name="DamageComponent" parent="." instance=ExtResource("6_pypgb")]
+can_ram_damage = true
+
+[node name="AIComponent" type="Node" parent="."]
+script = ExtResource("8_e5g2v")
+position_padding = Vector2(128, 128)
+
+[node name="AnimatedSprite" parent="." instance=ExtResource("8_d2w3v")]
+position = Vector2(0, -8.8)
+sprite_frames = SubResource("SpriteFrames_urfox")
+current_shape = 2
+tint = true
+tint_color = Color(0.784314, 0.784314, 0, 1)
+update_animation = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -8.8)
+scale = Vector2(5.5, 5.5)
+shape = SubResource("ConvexPolygonShape2D_7dnfg")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+position = Vector2(0, -10.67)
+scale = Vector2(6.7, 6.7)
+shape = SubResource("ConvexPolygonShape2D_7dnfg")
+
+[node name="DebugText" parent="." instance=ExtResource("10_sqfft")]
+visible = false
+position = Vector2(0, -112)

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bstdy1y6wom3a"]
+
+[ext_resource type="AudioStream" uid="uid://de4samkanebb5" path="res://Assets/Audio/Sfx/quick-swhooshing-noise.mp3" id="1_qkd7q"]
+
+[node name="Whoosh" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_qkd7q")
+volume_db = 5.0
+bus = &"Sfx"

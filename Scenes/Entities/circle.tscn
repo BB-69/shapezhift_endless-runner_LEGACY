@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://c6pkgyvr0vhaa"]
+
+[ext_resource type="Script" uid="uid://bwfcol41g2n7i" path="res://Scripts/circle.gd" id="1_rvaq8"]
+[ext_resource type="PackedScene" uid="uid://ljjck44lpgmy" path="res://Scenes/States/base_component.tscn" id="2_263sl"]
+[ext_resource type="PackedScene" uid="uid://b7xv0coqebwaa" path="res://Scenes/States/physics_component.tscn" id="3_w0j4y"]
+[ext_resource type="PackedScene" uid="uid://voc7m1usjfk2" path="res://Scenes/States/movement_component.tscn" id="4_wppee"]
+[ext_resource type="PackedScene" uid="uid://ct3cbtr1oha16" path="res://Scenes/States/health_component.tscn" id="5_53klb"]
+[ext_resource type="PackedScene" uid="uid://cqagamdtcdr0l" path="res://Scenes/UIs/health_bar.tscn" id="6_7tfrm"]
+[ext_resource type="PackedScene" uid="uid://bxf741v7qu2km" path="res://Scenes/States/damage_component.tscn" id="7_aicbn"]
+[ext_resource type="Script" uid="uid://i00foe8gtxru" path="res://Scripts/ai_component_circle.gd" id="8_rvaq8"]
+[ext_resource type="PackedScene" uid="uid://dsav4st602l7q" path="res://Scenes/Visuals/Sprites/animated_sprite.tscn" id="9_7cqut"]
+[ext_resource type="PackedScene" uid="uid://c7ggwseah422x" path="res://Scenes/Calculation/arc_segment.tscn" id="9_263sl"]
+[ext_resource type="Texture2D" uid="uid://bmxwcmb1ivxn8" path="res://Assets/Sprites/Circle1.png" id="10_263sl"]
+[ext_resource type="PackedScene" uid="uid://ciw5pdj5h2o1r" path="res://Scenes/Debug/debug_text.tscn" id="11_wjskk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0j4y"]
+atlas = ExtResource("10_263sl")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wppee"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0j4y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_53klb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7tfrm"]
+
+[node name="Circle" type="CharacterBody2D" node_paths=PackedStringArray("base", "aspr", "spr", "col", "phy", "mov", "hp", "dmg", "ai")]
+z_index = 5
+collision_layer = 8
+collision_mask = 7
+script = ExtResource("1_rvaq8")
+base = NodePath("BaseComponent")
+aspr = NodePath("AnimatedSprite")
+spr = [NodePath("HealthBar"), NodePath("AnimatedSprite"), NodePath("DebugText")]
+col = [NodePath("CollisionShape2D"), NodePath("HurtBox/CollisionShape2D")]
+phy = NodePath("PhysicsComponent")
+mov = NodePath("MovementComponent")
+hp = NodePath("HealthComponent")
+dmg = NodePath("DamageComponent")
+ai = NodePath("AIComponent")
+
+[node name="BaseComponent" parent="." instance=ExtResource("2_263sl")]
+
+[node name="PhysicsComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("3_w0j4y")]
+hurtbox = NodePath("../HurtBox")
+friction_set = Vector2(2, 2)
+gravity_multiplier = 0.5
+
+[node name="MovementComponent" parent="." instance=ExtResource("4_wppee")]
+current_move_mode = 1
+max_speed = 1800.0
+max_speed_duration = 3.0
+apply_friction = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_53klb")]
+_current_health = 150.0
+max_health = 150.0
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("hp") instance=ExtResource("6_7tfrm")]
+hp = NodePath("../HealthComponent")
+
+[node name="DamageComponent" parent="." instance=ExtResource("7_aicbn")]
+base_damage = 40
+can_ram_damage = true
+
+[node name="AIComponent" type="Node2D" parent="." node_paths=PackedStringArray("arc_segment")]
+script = ExtResource("8_rvaq8")
+position_padding = Vector2(128, 128)
+simulated_jump_power = Array[float]([-1800.0])
+arc_segment = NodePath("ArcSegment")
+
+[node name="ArcSegment" parent="AIComponent" instance=ExtResource("9_263sl")]
+collision_layer = 8
+
+[node name="Timer" type="Timer" parent="AIComponent"]
+one_shot = true
+
+[node name="AnimatedSprite" parent="." instance=ExtResource("9_7cqut")]
+sprite_frames = SubResource("SpriteFrames_wppee")
+current_shape = 1
+tint = true
+tint_color = Color(0.784314, 0, 0, 1)
+update_animation = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(5.5, 5.5)
+shape = SubResource("CircleShape2D_53klb")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+scale = Vector2(6.4, 6.4)
+shape = SubResource("CircleShape2D_7tfrm")
+
+[node name="DebugText" parent="." instance=ExtResource("11_wjskk")]
+visible = false
+position = Vector2(0, -112)

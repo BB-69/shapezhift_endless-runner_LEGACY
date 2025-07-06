@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlvmb4ml7vc5k"]
+
+[ext_resource type="Script" uid="uid://bgn86irpjexdc" path="res://Scripts/CharacterBodyBase/static.gd" id="1_analc"]
+
+[node name="StaticComponent" type="Node"]
+script = ExtResource("1_analc")

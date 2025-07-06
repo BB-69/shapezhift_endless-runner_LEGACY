@@ -1,0 +1,116 @@
+[gd_scene load_steps=14 format=3 uid="uid://3dgrcstoyuxy"]
+
+[ext_resource type="Script" uid="uid://duv83ubdvv18f" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://bmxwcmb1ivxn8" path="res://Assets/Sprites/Circle1.png" id="1_v0iea"]
+[ext_resource type="AudioStream" uid="uid://d1tugs6unsers" path="res://Assets/Audio/Sfx/white_noise.mp3" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://er0ok51u3vua" path="res://Scenes/jump_trail_particles.tscn" id="3_vgqql"]
+[ext_resource type="PackedScene" uid="uid://dnqqmpfqreone" path="res://Scenes/double_jump_trail.tscn" id="4_x3wgy"]
+[ext_resource type="AudioStream" uid="uid://dxq4dxhycvc34" path="res://Assets/Audio/Sfx/air-in-a-hit-.wav" id="5_fkybt"]
+[ext_resource type="AudioStream" uid="uid://bk2ctb85ivbva" path="res://Assets/Audio/Sfx/body-punch-quick-hit.wav" id="7_3smsa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvnsp"]
+atlas = ExtResource("1_v0iea")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6t5aa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvnsp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v0iea"]
+font_size = 48
+
+[sub_resource type="Curve" id="Curve_cvnsp"]
+_data = [Vector2(0, 0), 0.0, 11.0177, 0, 0, Vector2(0.261364, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.56838, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6t5aa"]
+offsets = PackedFloat32Array(0, 0.76, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+script = ExtResource("1_cvnsp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6t5aa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(6, 6)
+shape = SubResource("CircleShape2D_vgqql")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+limit_bottom = 512
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="DebugText" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -112)
+
+[node name="Position" type="Label" parent="DebugText"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.5
+offset_top = -11.5
+offset_right = 18.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "(0, 0)"
+label_settings = SubResource("LabelSettings_v0iea")
+horizontal_alignment = 1
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="TrailParticles" type="CPUParticles2D" parent="Particles"]
+z_index = 5
+position = Vector2(0, 64)
+emitting = false
+amount = 16
+lifetime = 0.8
+speed_scale = 1.5
+randomness = 0.5
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 128.0
+initial_velocity_max = 256.0
+angular_velocity_min = -64.0
+angular_velocity_max = 64.0
+scale_amount_min = 12.0
+scale_amount_max = 24.0
+scale_amount_curve = SubResource("Curve_cvnsp")
+color_ramp = SubResource("Gradient_6t5aa")
+
+[node name="JumpTrailParticles" parent="Particles" instance=ExtResource("3_vgqql")]
+
+[node name="DoubleJumpTrail" parent="Particles" instance=ExtResource("4_x3wgy")]
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="WhiteNoise" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("3_6t5aa")
+volume_db = -10.0
+pitch_scale = 0.8
+parameters/looping = false
+
+[node name="Whoosh" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("5_fkybt")
+volume_db = 5.0
+
+[node name="FellOnTheGround" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("7_3smsa")
+volume_db = 5.0

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsav4st602l7q"]
+
+[ext_resource type="Script" uid="uid://cp6cl65wx3lym" path="res://Scripts/animated_sprite.gd" id="2_plsgt"]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D"]
+scale = Vector2(0.9, 0.9)
+script = ExtResource("2_plsgt")

@@ -1,0 +1,90 @@
+[gd_scene load_steps=16 format=3 uid="uid://3dgrcstoyuxy"]
+
+[ext_resource type="Script" uid="uid://duv83ubdvv18f" path="res://Scripts/player.gd" id="1_14y0q"]
+[ext_resource type="PackedScene" uid="uid://ljjck44lpgmy" path="res://Scenes/States/base_component.tscn" id="2_2hnfo"]
+[ext_resource type="PackedScene" uid="uid://dsav4st602l7q" path="res://Scenes/Visuals/Sprites/animated_sprite.tscn" id="3_14y0q"]
+[ext_resource type="PackedScene" uid="uid://cd6eustnhms2j" path="res://Scenes/Visuals/Particles/after_trail.tscn" id="3_85s6f"]
+[ext_resource type="PackedScene" uid="uid://b7xv0coqebwaa" path="res://Scenes/States/physics_component.tscn" id="3_y18yp"]
+[ext_resource type="PackedScene" uid="uid://voc7m1usjfk2" path="res://Scenes/States/movement_component.tscn" id="4_85s6f"]
+[ext_resource type="PackedScene" uid="uid://ciw5pdj5h2o1r" path="res://Scenes/Debug/debug_text.tscn" id="4_yqx0t"]
+[ext_resource type="PackedScene" uid="uid://ct3cbtr1oha16" path="res://Scenes/States/health_component.tscn" id="5_85s6f"]
+[ext_resource type="PackedScene" uid="uid://bxf741v7qu2km" path="res://Scenes/States/damage_component.tscn" id="6_f5ba2"]
+[ext_resource type="PackedScene" uid="uid://cqagamdtcdr0l" path="res://Scenes/UIs/health_bar.tscn" id="6_kvkok"]
+[ext_resource type="Texture2D" uid="uid://bmxwcmb1ivxn8" path="res://Assets/Sprites/Circle1.png" id="6_y18yp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85s6f"]
+atlas = ExtResource("6_y18yp")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_14y0q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85s6f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_14y0q"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("base", "aspr", "spr", "col", "phy", "mov", "hp", "dmg", "aft") groups=["Player"]]
+z_index = 6
+collision_layer = 4
+collision_mask = 15
+floor_stop_on_slope = false
+script = ExtResource("1_14y0q")
+base = NodePath("BaseComponent")
+aspr = NodePath("AnimatedSprite")
+spr = [NodePath("HealthBar"), NodePath("AnimatedSprite"), NodePath("DebugText")]
+col = [NodePath("CollisionShape2D"), NodePath("HurtBox/CollisionShape2D")]
+phy = NodePath("PhysicsComponent")
+mov = NodePath("MovementComponent")
+hp = NodePath("HealthComponent")
+dmg = NodePath("DamageComponent")
+aft = NodePath("AfterTrail")
+
+[node name="BaseComponent" parent="." instance=ExtResource("2_2hnfo")]
+is_player = true
+
+[node name="PhysicsComponent" parent="." node_paths=PackedStringArray("hurtbox") instance=ExtResource("3_y18yp")]
+hurtbox = NodePath("../HurtBox")
+friction_set = Vector2(5, 5)
+
+[node name="MovementComponent" parent="." instance=ExtResource("4_85s6f")]
+current_move_mode = 1
+apply_friction = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_85s6f")]
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("hp") instance=ExtResource("6_kvkok")]
+hp = NodePath("../HealthComponent")
+
+[node name="DamageComponent" parent="." instance=ExtResource("6_f5ba2")]
+
+[node name="AnimatedSprite" parent="." instance=ExtResource("3_14y0q")]
+sprite_frames = SubResource("SpriteFrames_14y0q")
+current_shape = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2(5.5, 5.5)
+shape = SubResource("CircleShape2D_vgqql")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+scale = Vector2(6.4, 6.4)
+shape = SubResource("CircleShape2D_14y0q")
+
+[node name="DebugText" parent="." instance=ExtResource("4_yqx0t")]
+position = Vector2(0, -112)
+
+[node name="AfterTrail" parent="." node_paths=PackedStringArray("animated_sprite") instance=ExtResource("3_85s6f")]
+animated_sprite = NodePath("../AnimatedSprite")

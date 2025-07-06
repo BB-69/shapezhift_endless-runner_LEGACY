@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq2gr1obslgyu"]
+
+[ext_resource type="AudioStream" uid="uid://cstojmrnr6k2g" path="res://Assets/Audio/Sfx/small-explosion.mp3" id="1_padfv"]
+[ext_resource type="AudioStream" uid="uid://0y1jtorx204v" path="res://Assets/Audio/Sfx/bright-triple-sweep-quick.mp3" id="2_pgktg"]
+[ext_resource type="AudioStream" uid="uid://bshj6ph5o1kh8" path="res://Assets/Audio/Sfx/glass-break.mp3" id="3_qxrkn"]
+
+[node name="Whoosh-2" type="Node2D"]
+
+[node name="SmallExplosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_padfv")
+volume_db = -8.0
+pitch_scale = 2.0
+bus = &"Sfx"
+
+[node name="BrightTripleSweep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_pgktg")
+volume_db = 5.0
+pitch_scale = 1.1
+bus = &"Sfx"
+
+[node name="BrightTripleSweep2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_pgktg")
+volume_db = 3.0
+pitch_scale = 0.7
+bus = &"Sfx"
+
+[node name="GlassBreak" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_qxrkn")
+volume_db = -10.0
+bus = &"Sfx"

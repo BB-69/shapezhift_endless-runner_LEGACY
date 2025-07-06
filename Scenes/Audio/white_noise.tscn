@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhbpudbigy3np"]
+
+[ext_resource type="AudioStream" uid="uid://d1tugs6unsers" path="res://Assets/Audio/Sfx/white_noise.mp3" id="1_cpki8"]
+
+[node name="WhiteNoise" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_cpki8")
+volume_db = -10.0
+pitch_scale = 0.8
+bus = &"Sfx"
+parameters/looping = false

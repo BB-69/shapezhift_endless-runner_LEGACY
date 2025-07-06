@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://rvkach2qe8ni"]
+
+[ext_resource type="AudioStream" uid="uid://bk2ctb85ivbva" path="res://Assets/Audio/Sfx/body-punch-quick-hit.wav" id="1_qld76"]
+
+[node name="FellOnTheGround" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_qld76")
+volume_db = 5.0
+bus = &"Sfx"

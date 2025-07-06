@@ -1,0 +1,36 @@
+[gd_scene load_steps=11 format=3 uid="uid://c551ucsn1248n"]
+
+[ext_resource type="Script" uid="uid://bk6u3uul1mim6" path="res://Scripts/audio_manager.gd" id="1_omf2n"]
+[ext_resource type="AudioStream" uid="uid://2fypkls3q2ye" path="res://Assets/Audio/Sfx/silence-5-seconds.mp3" id="2_dpp4s"]
+[ext_resource type="Script" uid="uid://tvh4171tndf1" path="res://Scripts/audio_controller.gd" id="2_ieupc"]
+[ext_resource type="PackedScene" uid="uid://bhbpudbigy3np" path="res://Scenes/Audio/white_noise.tscn" id="3_omf2n"]
+[ext_resource type="PackedScene" uid="uid://dt6wjuioa01uu" path="res://Scenes/Audio/wind_gust.tscn" id="5_dpp4s"]
+[ext_resource type="PackedScene" uid="uid://bstdy1y6wom3a" path="res://Scenes/Audio/whoosh.tscn" id="5_nmqn7"]
+[ext_resource type="PackedScene" uid="uid://cq2gr1obslgyu" path="res://Scenes/Audio/whoosh_2.tscn" id="6_ca3r6"]
+[ext_resource type="PackedScene" uid="uid://rvkach2qe8ni" path="res://Scenes/Audio/fell_on_the_ground.tscn" id="7_frebe"]
+[ext_resource type="PackedScene" uid="uid://bcgysdaw7fdc4" path="res://Scenes/Audio/explosion.tscn" id="8_5g1tu"]
+[ext_resource type="PackedScene" uid="uid://darjgluuatii6" path="res://Scenes/Audio/hit.tscn" id="9_7xao4"]
+
+[node name="AudioManager" type="Node2D" node_paths=PackedStringArray("audc")]
+script = ExtResource("1_omf2n")
+audc = NodePath("AudioController")
+
+[node name="AudioController" type="Node" parent="."]
+script = ExtResource("2_ieupc")
+
+[node name="Empty" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_dpp4s")
+
+[node name="WhiteNoise" parent="." instance=ExtResource("3_omf2n")]
+
+[node name="WindGust" parent="." instance=ExtResource("5_dpp4s")]
+
+[node name="Whoosh" parent="." instance=ExtResource("5_nmqn7")]
+
+[node name="Whoosh-2" parent="." instance=ExtResource("6_ca3r6")]
+
+[node name="FellOnTheGround" parent="." instance=ExtResource("7_frebe")]
+
+[node name="Explosion" parent="." instance=ExtResource("8_5g1tu")]
+
+[node name="Hit" parent="." instance=ExtResource("9_7xao4")]

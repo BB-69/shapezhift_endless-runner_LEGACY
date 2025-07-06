@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://datrlase36x1k"]
+
+[ext_resource type="Script" uid="uid://c7itk8qu3648y" path="res://Scripts/particle_manager.gd" id="1_vpx6b"]
+[ext_resource type="Script" uid="uid://belvr7ynjm0hx" path="res://Scripts/particle_controller.gd" id="2_1hoae"]
+[ext_resource type="PackedScene" uid="uid://dmat5gyl1cpq8" path="res://Scenes/Visuals/Particles/trail_particles.tscn" id="3_q6wna"]
+[ext_resource type="PackedScene" uid="uid://er0ok51u3vua" path="res://Scenes/Visuals/Particles/jump_trail_particles.tscn" id="4_jevlp"]
+[ext_resource type="PackedScene" uid="uid://rayuwgq80pfy" path="res://Scenes/Visuals/Particles/double_jump_trail.tscn" id="5_jt1vs"]
+[ext_resource type="PackedScene" uid="uid://de8yf1wc1tfvr" path="res://Scenes/Visuals/Particles/explosion.tscn" id="7_ev1ct"]
+
+[node name="ParticleManager" type="Node2D" node_paths=PackedStringArray("ptcc")]
+z_index = 10
+script = ExtResource("1_vpx6b")
+ptcc = NodePath("ParticleController")
+
+[node name="ParticleController" type="Node" parent="."]
+script = ExtResource("2_1hoae")
+
+[node name="TrailParticles" parent="." instance=ExtResource("3_q6wna")]
+
+[node name="JumpTrailParticles" parent="." instance=ExtResource("4_jevlp")]
+
+[node name="DoubleJumpTrail" parent="." instance=ExtResource("5_jt1vs")]
+
+[node name="Explosion" parent="." instance=ExtResource("7_ev1ct")]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnew1etw4opia"]
+
+[ext_resource type="Script" uid="uid://d1koxq34hwyf2" path="res://Scripts/indicator.gd" id="1_4ljx4"]
+
+[node name="Indicator" type="Node2D"]
+script = ExtResource("1_4ljx4")
+arrow_padding = 80
+
+[node name="ArrowSprite" type="Polygon2D" parent="."]
+scale = Vector2(0.4, 0.4)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(64, 0, -64, 64, -32, 0, -64, -64)
+uv = PackedVector2Array(-86, 44, -86, 44, 2, -78, 105, 82)
+
+[node name="Polygon2D2" type="Polygon2D" parent="ArrowSprite"]
+position = Vector2(1, 0)
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(64, 0, -64, 64, -32, 0, -64, -64)
+uv = PackedVector2Array(-86, 44, -86, 44, 2, -78, 105, 82)

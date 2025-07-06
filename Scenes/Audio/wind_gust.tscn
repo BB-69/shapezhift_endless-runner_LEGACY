@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt6wjuioa01uu"]
+
+[ext_resource type="AudioStream" uid="uid://dqdonpkvnkp2n" path="res://Assets/Audio/Sfx/wind-gust.mp3" id="1_wdl1y"]
+
+[node name="WindGust" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_wdl1y")
+pitch_scale = 0.8
+bus = &"Sfx"
+parameters/looping = false

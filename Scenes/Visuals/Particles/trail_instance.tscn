@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvvqyhesf2vvm"]
+
+[ext_resource type="Script" uid="uid://bib0u7banqx5f" path="res://Scripts/trail_instance.gd" id="1_a6xen"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5bfyn"]
+
+[sub_resource type="Gradient" id="Gradient_5bfyn"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n25qe"]
+gradient = SubResource("Gradient_5bfyn")
+
+[node name="Trail-Instance" type="MeshInstance2D"]
+z_index = 5
+scale = Vector2(64, 64)
+mesh = SubResource("SphereMesh_5bfyn")
+texture = SubResource("GradientTexture1D_n25qe")
+script = ExtResource("1_a6xen")
+delay_time = 0.2
+fade_time = 0.0

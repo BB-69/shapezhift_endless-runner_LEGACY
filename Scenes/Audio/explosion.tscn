@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcgysdaw7fdc4"]
+
+[ext_resource type="AudioStream" uid="uid://bcx2ka3hl0rc4" path="res://Assets/Audio/Sfx/explosion-8-bit-8.mp3" id="1_et7hk"]
+[ext_resource type="AudioStream" uid="uid://6iu31asrha63" path="res://Assets/Audio/Sfx/small-explosion-8-bit.mp3" id="2_fdrvg"]
+
+[node name="Explosion" type="Node2D"]
+
+[node name="Explosion8bit-8" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_et7hk")
+volume_db = 5.0
+bus = &"Sfx"
+
+[node name="SmallExplosion8bit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_fdrvg")
+volume_db = 2.0
+bus = &"Sfx"

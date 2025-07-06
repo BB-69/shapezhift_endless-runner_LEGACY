@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://darjgluuatii6"]
+
+[ext_resource type="AudioStream" uid="uid://ct88p3q2wuqs2" path="res://Assets/Audio/Sfx/retro-click.mp3" id="1_pliul"]
+
+[node name="Hit" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_pliul")
+volume_db = -1.0
+bus = &"Sfx"

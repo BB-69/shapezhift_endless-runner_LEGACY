@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7xv0coqebwaa"]
+
+[ext_resource type="Script" uid="uid://bphcg260c04v8" path="res://Scripts/CharacterBodyBase/physics.gd" id="1_iagg4"]
+
+[node name="PhysicsComponent" type="Node"]
+script = ExtResource("1_iagg4")
+friction_set = 5.0

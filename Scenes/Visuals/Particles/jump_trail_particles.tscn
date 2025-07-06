@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://er0ok51u3vua"]
+
+[sub_resource type="Curve" id="Curve_cvnsp"]
+_data = [Vector2(0, 0), 0.0, 11.0177, 0, 0, Vector2(0.261364, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.56838, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_6t5aa"]
+offsets = PackedFloat32Array(0, 0.76, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[node name="JumpTrailParticles" type="CPUParticles2D"]
+z_index = 5
+emitting = false
+amount = 10
+lifetime = 1.6
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 0.6
+direction = Vector2(0, -1)
+spread = 60.0
+gravity = Vector2(0, 640)
+initial_velocity_min = 256.0
+initial_velocity_max = 384.0
+angular_velocity_min = -64.0
+angular_velocity_max = 64.0
+scale_amount_min = 12.0
+scale_amount_max = 24.0
+scale_amount_curve = SubResource("Curve_cvnsp")
+color_ramp = SubResource("Gradient_6t5aa")

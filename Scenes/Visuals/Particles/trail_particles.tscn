@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmat5gyl1cpq8"]
+
+[sub_resource type="Curve" id="Curve_cvnsp"]
+_data = [Vector2(0, 0), 0.0, 11.0177, 0, 0, Vector2(0.261364, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494382), -1.56838, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_pu2lt"]
+offsets = PackedFloat32Array(0, 0.753333, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="TrailParticles" type="CPUParticles2D"]
+z_index = 5
+emitting = false
+amount = 16
+lifetime = 0.8
+speed_scale = 1.5
+randomness = 0.5
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 128.0
+initial_velocity_max = 256.0
+angular_velocity_min = -64.0
+angular_velocity_max = 64.0
+scale_amount_min = 12.0
+scale_amount_max = 24.0
+scale_amount_curve = SubResource("Curve_cvnsp")
+color_ramp = SubResource("Gradient_pu2lt")

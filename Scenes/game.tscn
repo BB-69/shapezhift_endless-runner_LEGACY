@@ -1,0 +1,153 @@
+[gd_scene load_steps=21 format=4 uid="uid://btq4q260l2l5h"]
+
+[ext_resource type="Script" uid="uid://dcgnm25rosqrv" path="res://Scripts/camera.gd" id="1_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://do33qsld1uufk" path="res://Scenes/Game/obj_indicator.tscn" id="1_i6g32"]
+[ext_resource type="Texture2D" uid="uid://0tmkmpno614x" path="res://Assets/Sprites/Floor1.png" id="1_qxrlw"]
+[ext_resource type="Script" uid="uid://ws8q8yl70jqu" path="res://Scripts/game.gd" id="1_v158k"]
+[ext_resource type="Script" uid="uid://c7kg04q65mlgk" path="res://Scripts/tile_generator.gd" id="1_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://c551ucsn1248n" path="res://Scenes/Audio/audio_manager.tscn" id="2_h4fw4"]
+[ext_resource type="Texture2D" uid="uid://3vqg2s7dms0k" path="res://Assets/Sprites/Grid1.png" id="2_wowpa"]
+[ext_resource type="PackedScene" uid="uid://3dgrcstoyuxy" path="res://Scenes/Entities/player.tscn" id="2_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://datrlase36x1k" path="res://Scenes/Visuals/Particles/particle_manager.tscn" id="3_ldgsr"]
+[ext_resource type="PackedScene" uid="uid://bn3ear3ihwn5x" path="res://Scenes/Entities/square.tscn" id="4_3dryh"]
+[ext_resource type="Script" uid="uid://chhgqayg6bf8w" path="res://Scripts/canvas_cover.gd" id="5_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://dce08icnt463c" path="res://Scenes/Entities/triangle.tscn" id="12_rku1e"]
+[ext_resource type="PackedScene" uid="uid://c6pkgyvr0vhaa" path="res://Scenes/Entities/circle.tscn" id="13_rfjv2"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qxrlw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i6g32"]
+texture = ExtResource("2_wowpa")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3dryh"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_i6g32")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rku1e"]
+texture = ExtResource("1_qxrlw")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(64, -64, 64, 64, -64, 64, -55.5, 14, -27.5, -27, 13.5, -56)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, -64, 64, 64, 64, 55.5, 14, 27.5, -27, -13.5, -56)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(64, 64, 64, -64, -64, -64, -55.5, -14, -27.5, 27, 13.5, 56)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, 64, -64, -64, 64, -64, 55.5, -14, 27.5, 27, -13.5, 56)
+
+[sub_resource type="TileSet" id="TileSet_rfjv2"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 15
+sources/0 = SubResource("TileSetAtlasSource_rku1e")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
+texture = ExtResource("1_qxrlw")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(64, 64, -64, 64, -56, 16, -28, -27, 16, -55, 64, -64)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, 64, 64, 64, 56, 16, 28, -27, -16, -55, -64, -64)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(64, -64, -64, -64, -56, -16, -28, 27, 16, 55, 64, 64)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 56, -16, 28, 27, -16, 55, -64, 64)
+
+[sub_resource type="TileSet" id="TileSet_wowpa"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 15
+sources/0 = SubResource("TileSetAtlasSource_3dryh")
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_v158k")
+can_spawn = false
+
+[node name="CanvasCover" type="Polygon2D" parent="."]
+visible = false
+z_index = 100
+position = Vector2(0, -512)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1920, -1080, 1920, -1080, 1920, 1080, -1920, 1080)
+script = ExtResource("5_o5yvi")
+
+[node name="AudioManager" parent="." instance=ExtResource("2_h4fw4")]
+
+[node name="ParticleManager" parent="." instance=ExtResource("3_ldgsr")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, -512)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_speed = 3.0
+script = ExtResource("1_1l0tm")
+pos_smoothing = 3.0
+
+[node name="ObjIndicator" parent="." instance=ExtResource("1_i6g32")]
+position = Vector2(0, 512)
+
+[node name="TileGenerator" type="Node2D" parent="."]
+script = ExtResource("1_wrm1d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileGenerator"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileGenerator/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_qxrlw")
+
+[node name="GridMap" type="TileMapLayer" parent="TileGenerator"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.0980392)
+z_index = -10
+tile_set = SubResource("TileSet_3dryh")
+
+[node name="PlatformMap" type="TileMapLayer" parent="TileGenerator"]
+unique_name_in_owner = true
+tile_map_data = PackedByteArray("AAD7/wAAAAABAAAAAAD8/wAAAAABAAAAAAD9/wAAAAABAAAAAAD+/wAAAAABAAAAAAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAD7/wEAAAABAAEAAAD7/wIAAAABAAEAAAD7/wMAAAABAAEAAAD8/wEAAAABAAEAAAD8/wIAAAABAAEAAAD8/wMAAAABAAEAAAD9/wEAAAABAAEAAAD9/wIAAAABAAEAAAD9/wMAAAABAAEAAAD+/wEAAAABAAEAAAD+/wIAAAABAAEAAAD+/wMAAAABAAEAAAD//wEAAAABAAEAAAD//wIAAAABAAEAAAD//wMAAAABAAEAAAAAAAEAAAABAAEAAAAAAAIAAAABAAEAAAAAAAMAAAABAAEAAAABAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAADAAEAAAABAAEAAAADAAIAAAABAAEAAAADAAMAAAABAAEAAAAEAAEAAAABAAEAAAAEAAIAAAABAAEAAAAEAAMAAAABAAEAAAA=")
+tile_set = SubResource("TileSet_rfjv2")
+
+[node name="FloorMap" type="TileMapLayer" parent="TileGenerator"]
+unique_name_in_owner = true
+tile_map_data = PackedByteArray("AAD7/wAAAAABAAAAAAD8/wAAAAABAAAAAAD9/wAAAAABAAAAAAD+/wAAAAABAAAAAAD//wAAAAABAAAAAAAAAAAAAAABAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAADAAAAAAABAAAAAAAEAAAAAAABAAAAAAD7/wEAAAABAAEAAAD7/wIAAAABAAEAAAD7/wMAAAABAAEAAAD8/wEAAAABAAEAAAD8/wIAAAABAAEAAAD8/wMAAAABAAEAAAD9/wEAAAABAAEAAAD9/wIAAAABAAEAAAD9/wMAAAABAAEAAAD+/wEAAAABAAEAAAD+/wIAAAABAAEAAAD+/wMAAAABAAEAAAD//wEAAAABAAEAAAD//wIAAAABAAEAAAD//wMAAAABAAEAAAAAAAEAAAABAAEAAAAAAAIAAAABAAEAAAAAAAMAAAABAAEAAAABAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAADAAEAAAABAAEAAAADAAIAAAABAAEAAAADAAMAAAABAAEAAAAEAAEAAAABAAEAAAAEAAIAAAABAAEAAAAEAAMAAAABAAEAAAA=")
+tile_set = SubResource("TileSet_wowpa")
+
+[node name="Player" parent="." instance=ExtResource("2_wrm1d")]
+position = Vector2(0, -256)
+
+[node name="Square" parent="." instance=ExtResource("4_3dryh")]
+position = Vector2(600, -300)
+
+[node name="Square2" parent="." instance=ExtResource("4_3dryh")]
+position = Vector2(-600, -300)
+
+[node name="triangle" parent="." instance=ExtResource("12_rku1e")]
+position = Vector2(-400, -800)
+
+[node name="triangle2" parent="." instance=ExtResource("12_rku1e")]
+position = Vector2(400, -800)
+
+[node name="Circle" parent="." instance=ExtResource("13_rfjv2")]
+position = Vector2(-1000, -600)
+
+[node name="Circle2" parent="." instance=ExtResource("13_rfjv2")]
+position = Vector2(1000, -600)
